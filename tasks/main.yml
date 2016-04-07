@@ -13,19 +13,6 @@
     dest: /etc/yum.repos.d/opennebula.repo
   tags: opennebula
 
-# Dependencies are more complex than this. Treetop is one of the required gems.
-# When it is installed, the dependencies are assumed to be met.
-- name: Test if gem dependencies are installed
-  shell: gem list -i treetop
-  register: opennebula_gems_installed
-  changed_when: false
-  tags: opennebula
-
-- name: Install gem dependencies
-  shell: yes | /usr/share/one/install_gems
-  when: opennebula_gems_installed.rc != 0
-  tags: opennebula
-
 - include: frontend.yml
   when: ansible_hostname == opennebula_frontend_host
 
