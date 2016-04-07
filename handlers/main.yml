@@ -1,0 +1,7 @@
+# roles/opennebula-frontend/handlers/main.yml
+---
+
+- name: restart opennebula-frontend
+  service:
+    name: "{{ opennebula-frontend_service }}"
+    state: restarted

@@ -1,0 +1,7 @@
+# roles/opennebula-frontend/vars/main.yml
+---
+
+opennebula-frontend_packages:
+  - opennebula-frontend
+
+opennebula-frontend_service: opennebula-frontendd
