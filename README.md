@@ -1,6 +1,6 @@
 # Ansible role `opennebula-frontend`
 
-An Ansible role for PURPOSE. Specifically, the responsibilities of this role are to:
+An Ansible role for setting up an OpenNebula frontend on CentOS/RHEL 7. Specifically, the responsibilities of this role are to:
 
 -
 

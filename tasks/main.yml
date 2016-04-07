@@ -1,16 +1,42 @@
 # roles/opennebula-frontend/tasks/main.yml
 ---
 
+- name: Install EPEL repository
+  yum:
+    pkg: "epel-release"
+    state: installed
+  tags: opennebula-frontend
+
+- name: Enable OpenNebula repository
+  copy:
+    src: etc_yum.repos.d_opennebula.repo
+    dest: /etc/yum.repos.d/opennebula.repo
+  tags: opennebula-frontend
+
 - name: Install packages
   yum:
     pkg: "{{ item }}"
     state: installed
-  with_items: opennebula-frontend_packages
+  with_items: opennebula_frontend_packages
+  tags: opennebula-frontend
+
+# Dependencies are more complex than this. Treetop is one of the required gems.
+# When it is installed, the dependencies are assumed to be met.
+- name: Test if gem dependencies are installed
+  shell: gem list -i treetop
+  register: opennebula_gems_installed
+  changed_when: false
+  tags: opennebula-frontend
+
+- name: Install gem dependencies
+  shell: yes | /usr/share/one/install_gems
+  when: opennebula_gems_installed.rc != 0
   tags: opennebula-frontend
 
 - name: Ensure service is started
   service:
-    name: "{{ opennebula-frontend_service }}"
+    name: "{{ item }}"
     state: started
     enabled: true
+  with_items: opennebula_frontend_services
   tags: opennebula-frontend

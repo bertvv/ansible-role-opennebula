@@ -1,7 +1,11 @@
 # roles/opennebula-frontend/vars/main.yml
 ---
 
-opennebula-frontend_packages:
-  - opennebula-frontend
+opennebula_frontend_packages:
+  - redhat-lsb
+  - opennebula-server
+  - opennebula-sunstone
 
-opennebula-frontend_service: opennebula-frontendd
+opennebula_frontend_services:
+  - opennebula
+  - opennebula-sunstone
