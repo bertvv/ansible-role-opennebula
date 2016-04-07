@@ -13,6 +13,9 @@
     dest: /etc/yum.repos.d/opennebula.repo
   tags: opennebula
 
+- include: nfs.yml
+
 - include: frontend.yml
   when: ansible_hostname == opennebula_frontend_host
 
+- include: node.yml

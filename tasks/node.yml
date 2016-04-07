@@ -1,0 +1,17 @@
+# roles/opennebula/tasks/node.yml
+---
+
+- name: Node | Install packages
+  yum:
+    pkg: "{{ item }}"
+    state: installed
+  with_items: opennebula_node_packages
+  tags: opennebula
+
+- name: Node | Ensure services are started
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  with_items: opennebula_node_services
+  tags: opennebula

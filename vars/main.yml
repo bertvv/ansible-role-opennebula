@@ -9,3 +9,17 @@ opennebula_frontend_packages:
 opennebula_frontend_services:
   - opennebula
   - opennebula-sunstone
+
+opennebula_node_packages:
+  - opennebula-node-kvm
+
+opennebula_node_services:
+  - messagebus
+  - libvirtd
+
+opennebula_nfs_packages:
+  - nfs-utils
+
+opennebula_nfs_services:
+  - rpcbind
+  - nfs

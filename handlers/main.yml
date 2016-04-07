@@ -1,7 +1,8 @@
 # roles/opennebula-frontend/handlers/main.yml
 ---
 
-- name: restart opennebula-frontend
+- name: restart nfs
   service:
-    name: "{{ opennebula-frontend_service }}"
+    name: "{{ item }}"
     state: restarted
+  with_items: opennebula_nfs_services 

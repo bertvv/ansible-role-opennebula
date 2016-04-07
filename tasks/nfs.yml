@@ -1,0 +1,31 @@
+# roles/opennebula/tasks/node.yml
+---
+
+- name: NFS | Install packages
+  yum:
+    pkg: "{{ item }}"
+    state: installed
+  with_items: opennebula_nfs_packages
+  tags: opennebula
+
+- name: NFS | Configuration
+  lineinfile:
+    dest: /etc/exports
+    line: /var/lib/one/ *(rw,sync,no_subtree_check,root_squash)
+    state: present
+    create: true
+  tags: opennebula
+  notify: restart nfs
+
+- name: NFS | Ensure services are started
+  service:
+    name: "{{ item }}"
+    state: started
+  with_items: opennebula_nfs_services
+  tags: opennebula
+
+- name: NFS | Ensure NFS is enabled at boot
+  service:
+    name: nfs-server
+    enabled: true
+  tags: opennebula
