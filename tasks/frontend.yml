@@ -1,0 +1,17 @@
+# roles/opennebula-frontend/tasks/main.yml
+---
+
+- name: Frontend | Install packages
+  yum:
+    pkg: "{{ item }}"
+    state: installed
+  with_items: opennebula_frontend_packages
+  tags: opennebula
+
+- name: Frontend | Ensure services are started
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  with_items: opennebula_frontend_services
+  tags: opennebula
